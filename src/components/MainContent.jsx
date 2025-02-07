@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCompass, FaMicrophone, FaUserCircle } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
+import { Context } from "../context/context";
 
 const MainContent = () => {
+  const {
+    input,
+    setInput,
+    recentPrompt,
+    setRecentPrompt,
+    previousPrompt,
+    setPreviousPrompt,
+    showResult,
+    setShowResult,
+    loading,
+    resultData,
+    onSent,
+  } = useContext(Context);
+
   return (
     <div className="flex-1 min-h-screen pb-[15vh] relative">
       <div className="flex items-center justify-between text-xl p-5 text-slate-700">
@@ -31,10 +46,15 @@ const MainContent = () => {
               type="text"
               placeholder="Enter your Queries..."
               className="flex-1 bg-transparent border-none outline-none p-2 text-lg"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
             <div className="flex gap-4 items-center">
               <FaMicrophone className="text-2xl cursor-pointer" />
-              <IoIosSend className="text-2xl cursor-pointer" />
+              <IoIosSend
+                onClick={() => onSent(input)}
+                className="text-2xl cursor-pointer"
+              />
             </div>
           </div>
           <p className="rext-sm my-4 mx-auto text-center font-[500] text-slate-600"></p>
